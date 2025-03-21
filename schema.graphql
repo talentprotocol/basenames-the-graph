@@ -1,0 +1,11 @@
+type Holder @entity {
+  id: ID! # Wallet address
+  tokensOwned: [Token!] @derivedFrom(field: "owner")
+}
+
+type Token @entity {
+  id: ID! # Token ID
+  nameExpiresAt: BigInt
+  lastUpdatedAt: BigInt!
+  owner: Holder!
+}
