@@ -7,5 +7,6 @@ type Token @entity {
   id: ID! # Token ID
   nameExpiresAt: BigInt
   lastUpdatedAt: BigInt!
+  firstSeenAt: BigInt!
   owner: Holder!
 }
