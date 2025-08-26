@@ -39,4 +39,6 @@ dataSources:
           handler: handleNameRegisteredWithRecord
         - event: Transfer(indexed address,indexed address,indexed uint256)
           handler: handleTransfer
+        - event: NameRenewed(indexed uint256,uint256)
+          handler: handleNameRenewed
       file: ./src/base-registrar.ts
