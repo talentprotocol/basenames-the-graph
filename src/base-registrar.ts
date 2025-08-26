@@ -1,6 +1,7 @@
 import {
   NameRegistered as NameRegisteredEvent,
   NameRegisteredWithRecord as NameRegisteredWithRecordEvent,
+  NameRenewed as NameRenewedEvent,
   Transfer as TransferEvent,
 } from "../generated/BaseRegistrar/BaseRegistrar";
 import { Token, Holder } from "../generated/schema";
@@ -64,4 +65,16 @@ export function handleTransfer(event: TransferEvent): void {
   token.owner = newOwner.id;
   token.save();
   newOwner.save();
+}
+
+export function handleNameRenewed(event: NameRenewedEvent): void {
+  let token = Token.load(event.params.id.toString());
+  if (!token) {
+    // When token is not found, we can't handle it
+    return;
+  }
+
+  token.nameExpiresAt = event.params.expires;
+  token.lastUpdatedAt = event.block.timestamp;
+  token.save();
 }
